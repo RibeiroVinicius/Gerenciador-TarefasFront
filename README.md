@@ -1,27 +1,88 @@
-# GerenciadorTarefasFront
+# Gerenciador de Tarefas - Front-End
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Aplicação web desenvolvida em **Angular 17**, com foco em usabilidade, responsividade e integração com API autenticada via JWT. Permite gerenciamento completo de tarefas com filtros, ordenações e notificações.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Tecnologias Utilizadas
 
-## Code scaffolding
+- Angular 17
+- Angular Material
+- RxJS
+- TypeScript
+- SCSS
+- Reactive Forms
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## ⚙️ Como Executar
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone o repositório:
 
-## Running unit tests
+bash
+git clone https://github.com/RibeiroVinicius/Gerenciador-TarefasFront
+cd Gerenciador-TarefasFront
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Instale as dependências:
+npm install
 
-## Running end-to-end tests
+3. Inicie a aplicação:
+ng serve
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+4. Acesse no navegador:
 
-## Further help
+http://localhost:4200
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## 🔐 Acesso
+Use o mesmo login configurado no back-end:
+
+Usuário: administrador
+
+Senha: mv
+
+
+## ✅ Funcionalidades Implementadas
+- Tela de login com autenticação JWT
+
+- Listagem de tarefas em tabela (MatTable)
+
+- Criação e edição de tarefas via modal
+
+- Filtros por:
+
+  Texto (pesquisa)
+
+  Status (pendente ou concluída)
+
+  Período (data inicial e final)
+
+- Ordenação por colunas
+
+- Paginação com MatPaginator
+
+- Snackbar para feedback de ações (sucesso ou erro)
+
+- Scroll local na tabela para melhor UX
+
+- Botão “Limpar Filtros”
+
+- Logout e controle de sessão
+
+- Estilo responsivo com Angular Material
+
+
+## 📁 Estrutura do Projeto
+components/ – Componentes da tela (listagem, modal, login)
+
+services/ – Serviços responsáveis por chamada à API
+
+interface/ – Interface das entidades
+
+guards/ – Proteção de rotas autenticadas
+
+pipes/ – Formatações personalizadas
+
+
+## 🔗 Integração com o Back-End
+Certifique-se de que o back-end (https://localhost:5129) esteja rodando e acessível, com CORS habilitado.
