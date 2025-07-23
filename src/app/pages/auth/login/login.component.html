@@ -1,0 +1,47 @@
+<!-- Container principal do login -->
+<div class="login-container">
+<!-- Avatar com imagem de login -->
+<div class="avatar">
+  <img src="/assets/login-image.png" alt="Login" />
+</div>
+
+
+  <h2>Login</h2>
+
+  <!-- Formulário de Login -->
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Usuário</mat-label>
+      <input matInput formControlName="usuario" required autofocus class="input" />
+      <mat-error *ngIf="loginForm.get('usuario')?.hasError('required')">
+        O usuário é obrigatório.
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput formControlName="senha" required type="password" />
+      <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
+        A senha é obrigatória.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-raised-button class="btn-primary" type="submit" [disabled]="loginForm.invalid || loading">
+        <mat-spinner *ngIf="loading" diameter="24" strokeWidth="3"></mat-spinner>
+        <span *ngIf="!loading">Entrar</span>
+      </button>
+    </div>
+  </form>
+
+  <mat-progress-spinner
+  *ngIf="loading"
+  mode="indeterminate"
+  diameter="48"
+  color="primary"
+  class="loading-spinner">
+</mat-progress-spinner>
+
+</div>

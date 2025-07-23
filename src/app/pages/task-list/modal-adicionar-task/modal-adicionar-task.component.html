@@ -1,0 +1,48 @@
+<div class="modal" [ngClass]="{ 'show': openModal }">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ _taskSelected ? 'Editar Tarefa' : 'Criar Nova Tarefa' }}</h2>
+      <button mat-icon-button color="warn" (click)="closeModal()" aria-label="Fechar">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <form [formGroup]="formTask" (ngSubmit)="saveTask()" class="modal-form">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="titulo" required autofocus />
+        <mat-error *ngIf="formTask.get('titulo')?.hasError('required')">
+          O título é obrigatório.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="descricao" rows="3"></textarea>
+      </mat-form-field>
+
+      <div class="status-preview">
+        <label>Status:</label>
+        <span>{{ getStatus(formTask.get('concluida')?.value) }}</span>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Data Limite</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dataLimite" required />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formTask.get('dataLimite')?.hasError('required')">
+          Data limite é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formTask.invalid || loading">
+          <mat-spinner *ngIf="loading" diameter="24" strokeWidth="3"></mat-spinner>
+          <span *ngIf="!loading">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

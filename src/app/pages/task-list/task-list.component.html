@@ -1,0 +1,111 @@
+<button class="logout" mat-button color="warn" (click)="logout()">
+  <mat-icon>logout</mat-icon>
+</button>
+
+<div class="task-container">
+  <div class="filter-toolbar">
+    <mat-form-field appearance="outline" class="filter-item">
+      <mat-label>Pesquisar</mat-label>
+      <input matInput [(ngModel)]="searchText" (ngModelChange)="applyFilters()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-item">
+      <mat-label>Filtrar por Status</mat-label>
+      <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilters()">
+        <mat-option value="">Todos</mat-option>
+        <mat-option value="concluida">Concluída</mat-option>
+        <mat-option value="pendente">Pendente</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-item">
+      <mat-label>Data Inicial</mat-label>
+      <input matInput [matDatepicker]="startPicker" [(ngModel)]="dataInicio" (dateChange)="applyFilters()" />
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-item">
+      <mat-label>Data Final</mat-label>
+      <input matInput [matDatepicker]="endPicker" [(ngModel)]="dataFim" (dateChange)="applyFilters()" />
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="filter-actions">
+      <button mat-raised-button color="Basic" (click)="limparFiltros()">Limpar Filtros</button>
+      <button mat-raised-button color="primary" (click)="openTaskModal()">
+        <mat-icon>add</mat-icon>
+        Nova Tarefa
+      </button>
+    </div>
+  </div>
+
+
+<mat-progress-spinner
+  *ngIf="loading"
+  mode="indeterminate"
+  diameter="48"
+  color="primary"
+  class="loading-spinner">
+</mat-progress-spinner>
+
+<div class="task-table">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z2" matSort>
+
+  <!-- Título -->
+  <ng-container matColumnDef="titulo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Título </th>
+    <td mat-cell *matCellDef="let task"> {{ task.titulo }} </td>
+  </ng-container>
+
+  <!-- Descrição -->
+  <ng-container matColumnDef="descricao">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
+    <td mat-cell *matCellDef="let task"> {{ task.descricao }} </td>
+  </ng-container>
+
+  <!-- Status -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+    <td mat-cell *matCellDef="let task"> {{ getStatus(task.concluida) }} </td>
+  </ng-container>
+
+  <!-- Data Limite -->
+  <ng-container matColumnDef="dataLimite">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Limite </th>
+    <td mat-cell *matCellDef="let task"> {{ task.dataLimite | date:'dd/MM/yyyy' }} </td>
+  </ng-container>
+
+  <!-- Ações -->
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef> Ações </th>
+    <td mat-cell *matCellDef="let task">
+      <button mat-button color="primary" matTooltip="Editar" (click)="editarTask(task)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-button color="warn" matTooltip="Deletar" (click)="deleteTask(task.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-button color="sucess" matTooltip="Concluir Tarefa" (click)="concluirTask(task)">
+        <mat-icon>check</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Header & Rows -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+</div>
+
+<!-- Modal para criar/editar tarefa -->
+<app-modal-adicionar-task
+  [openModal]="openModal"
+  [taskSelected]="taskSelected"
+  (closeModalEvent)="closeModal()">
+</app-modal-adicionar-task>
