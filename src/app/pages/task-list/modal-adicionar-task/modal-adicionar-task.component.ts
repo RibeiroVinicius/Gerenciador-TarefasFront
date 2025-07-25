@@ -52,7 +52,7 @@ export class ModalAdicionarTaskComponent implements OnInit {
     const data = new Date(control.value);
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
-    return data >= hoje ? null : { dataInvalida: true };
+    return data > hoje ? null : { dataInvalida: true };
   }
 
   /** Submete o formulário */
