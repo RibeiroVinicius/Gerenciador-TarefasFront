@@ -62,3 +62,15 @@
     align-items: center;
   }
 }
+
+.col-titulo,
+.col-descricao {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-descricao {
+  max-width: 200px;
+}

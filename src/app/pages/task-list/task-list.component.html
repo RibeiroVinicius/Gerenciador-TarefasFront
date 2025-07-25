@@ -55,14 +55,14 @@
 
   <!-- Título -->
   <ng-container matColumnDef="titulo">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Título </th>
-    <td mat-cell *matCellDef="let task"> {{ task.titulo }} </td>
+    <th mat-header-cell *matHeaderCellDef class="col-titulo" mat-sort-header> Título </th>
+    <td mat-cell *matCellDef="let task" class="col-titulo"> {{ task.titulo }} </td>
   </ng-container>
 
   <!-- Descrição -->
   <ng-container matColumnDef="descricao">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
-    <td mat-cell *matCellDef="let task"> {{ task.descricao }} </td>
+    <th mat-header-cell *matHeaderCellDef class="col-descricao" mat-sort-header> Descrição </th>
+    <td mat-cell *matCellDef="let task" class="col-descricao"> {{ task.descricao }} </td>
   </ng-container>
 
   <!-- Status -->
@@ -87,8 +87,11 @@
       <button mat-button color="warn" matTooltip="Deletar" (click)="deleteTask(task.id)">
         <mat-icon>delete</mat-icon>
       </button>
-      <button mat-button color="sucess" matTooltip="Concluir Tarefa" (click)="concluirTask(task)">
+      <button *ngIf="!task.concluida" mat-button color="sucess" matTooltip="Concluir Tarefa" (click)="concluirTask(task)">
         <mat-icon>check</mat-icon>
+      </button>
+      <button *ngIf="task.concluida" mat-button color="sucess" matTooltip="Reabrir Tarefa" (click)="concluirTask(task)">
+        <mat-icon>undo</mat-icon>
       </button>
     </td>
   </ng-container>
